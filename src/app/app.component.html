@@ -1,0 +1,63 @@
+<script>
+  var myModal = document.getElementById('myModal')
+  var myInput = document.getElementById('myInput')
+
+  myModal.addEventListener('shown.bs.modal', function () {
+    myInput.focus()
+  })
+</script>
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop" style="margin: 20px">
+  + новый пользователь
+</button>
+<!-- Modal -->
+<div ng-app="" class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Добавление пользователя</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="userName">Имя</label>
+          <input id="userName" type="text" class="form-control" [formControl]="userName">
+        </div>
+        <div class="form-group">
+          <label for="userFavorite">Любимые каналы</label>
+          <select class="form-control" multiple="true" name="" id="userFavorite" [formControl]="userFavorite">
+            <option *ngFor="let content of this.content" value="{{ content.favorite_content_id }}">
+              {{ content.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+        <button type="button" class="btn btn-primary" (click)="onUser()">Сохранить</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Имя</th>
+      <th scope="col">Любимый телеканал</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ user.name }}</td>
+      <td>{{ getFavoriteChannels(user.favorite_content_id) }}</td>
+    </tr>
+  </tbody>
+</table>
+
